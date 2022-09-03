@@ -9,6 +9,7 @@
     <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css>
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/gentius" type="text/css" />
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/hjet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/openplayerjs@latest/dist/openplayer.min.css" />
     <script src="https://kit.fontawesome.com/3590ed5741.js" crossorigin="anonymous"></script>
     <style type="text/css">
         ::-webkit-scrollbar {
@@ -149,26 +150,34 @@
                     </div>
                 </div>
                 <div class="pb-1 is-hidden-mobile"></div>
-                <div class="mt-3 is-pulled-left">
-                    <a href=https://cdzungx.dev>
-                        <div class="button"><i class="fa-solid fa-house"></i></div>
-                    </a>
-                    <a href="/dev.html">
-                        <div class="button"><i class="fa-solid fa-flask""></i>
-                            <div class="subtitle is-4 pl-1">Dev
-                        </div>
-                </div>
+                <a href=https://cdzungx.dev>
+                    <div class="button mt-3 is-pulled-left"><i class="fa-solid fa-house"></i></div>
                 </a>
-            </div>
-            <div class="button p-1 mt-3 is-pulled-right is-warning">
-                <div class="subtitle is-4" data-video="WdnoZWiFw-g" data-autoplay="1" data-loop="1" id="youtube-audio">
-                    <i class="fa-solid fa-headphones pr-2"></i>Music
+
+                <div class="box p-1 mt-4 ml-6" style="background-color: #cc0606; width: 50vw; position: sticky; float: right;                ">
+                    <audio class="op-player__media" id="player" controls playsinline autoplay >
+                    </audio>
                 </div>
             </div>
         </div>
-        </div>
+
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/openplayerjs@latest/dist/openplayer.min.js"></script>
+    <script>
+        const player = new OpenPlayerJS('player', {
+            controls: {
+                alwaysVisible: true,
+                layers: {
+                    left: ['play', 'time', 'volume'],
+                    middle: ['progress'],
+                    right: ['settings'],
+                },
+            },
+           });
+        player.src = { type: 'audio/mpeg', src: "/soundtrack/tienquanca.mp3" };
+        player.init();
+    </script>
     <script
         type="text/javascript">var countDate = new Date('Apr 30, 2023 00:00:00').getTime(); function vn() { var now = new Date().getTime(); gap = countDate - now; var second = 1000; var minute = second * 60; var hour = minute * 60; var day = hour * 24; var d = Math.floor(gap / (day)); var h = Math.floor((gap % (day)) / (hour)); var m = Math.floor((gap % (hour)) / (minute)); var s = Math.floor((gap % (minute)) / (second)); document.getElementById('day').innerText = d; document.getElementById('hour').innerText = h; document.getElementById('minute').innerText = m; document.getElementById('second').innerText = s } setInterval(function () { vn() }, 1000) </script>
     <script src="https://www.youtube.com/iframe_api"></script>
