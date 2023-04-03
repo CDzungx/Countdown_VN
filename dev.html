@@ -45,6 +45,28 @@
             justify-content: center;
             align-items: center;
         }
+
+        /* Add a transition to the modal element */
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Add a transition to the modal background element */
+        .modal-background {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Set the initial opacity of the modal and modal background elements to 0 */
+        .modal.is-active,
+        .modal-background.is-active {
+            opacity: 0;
+        }
+
+        /* Set the final opacity of the modal and modal background elements to 1 when they are active */
+        .modal.is-active,
+        .modal-background.is-active {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -154,32 +176,161 @@
                     <div class="button mt-3 is-pulled-left"><i class="fa-solid fa-house"></i></div>
                 </a>
 
-                <div class="box p-1 mt-4 ml-6" style="background-color: #cc0606; width: 50vw; position: sticky; float: right;                ">
-                    <audio class="op-player__media" id="player" controls playsinline autoplay >
-                    </audio>
+                <div class="box p-1 mt-4 ml-6"
+                    style="background-color: #cc0606; width: 50vw; position: sticky; float: right;">
+                    <!-- Add a button with a headphone icon -->
+                    <button id="open-music-player"><i class="fas fa-headphones"></i></button>
+
+                    <!-- Add a modal window to display the music player -->
+                    <div id="music-player-modal" class="modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-content">
+                            <div class="musiccontainer">
+                                <div class="buttons">
+                                    <button class="button is-primary" id="prev"><i
+                                            class="fas fa-step-backward"></i></button>
+                                    <button class="button is-primary" id="play-pause"><i
+                                            class="fas fa-play"></i></button>
+                                    <button class="button is-primary" id="next"><i
+                                            class="fas fa-step-forward"></i></button>
+                                </div>
+                                <div class="field">
+                                    <label for="volume" class="label">Volume</label>
+                                    <input type="range" min=0 max=1 step=0.1 id="volume">
+                                </div>
+                                <div>Now playing: <span id="current-song"></span></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/openplayerjs@latest/dist/openplayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.3/dist/howler.min.js"></script>
     <script>
-        const player = new OpenPlayerJS('player', {
-            controls: {
-                alwaysVisible: true,
-                layers: {
-                    left: ['play', 'time', 'volume'],
-                    middle: ['progress'],
-                    right: ['settings'],
-                },
-            },
-           });
-        player.src = { type: 'audio/mpeg', src: "/soundtrack/tienquanca.mp3" };
-        player.init();
+        // Add an event listener to the open-music-player buttons
+        document.getElementById("open-music-player").addEventListener("click", function () {
+            // Toggle the is-active class on the music-player-modal element
+            document.getElementById("music-player-modal").classList.toggle("is-active");
+        });
     </script>
-    <script
-        type="text/javascript">var countDate = new Date('Apr 30, 2023 00:00:00').getTime(); function vn() { var now = new Date().getTime(); gap = countDate - now; var second = 1000; var minute = second * 60; var hour = minute * 60; var day = hour * 24; var d = Math.floor(gap / (day)); var h = Math.floor((gap % (day)) / (hour)); var m = Math.floor((gap % (hour)) / (minute)); var s = Math.floor((gap % (minute)) / (second)); document.getElementById('day').innerText = d; document.getElementById('hour').innerText = h; document.getElementById('minute').innerText = m; document.getElementById('second').innerText = s } setInterval(function () { vn() }, 1000) </script>
+    <script>
+        // Array of songs
+        var songs = ['/soundtrack/datnuoctronniemvui.mp3', '/soundtrack/tienquanca.mp3', '/soundtrack/duongchungtadi.mp3'];
+        var currentSong = 0;
+
+        // Create new Howl object
+        var sound = new Howl({
+            src: [songs[currentSong]]
+        });
+
+        // Update the current song display
+        document.getElementById('current-song').textContent = songs[currentSong];
+
+        // Play/Pause button click event
+        document.getElementById('play-pause').addEventListener('click', function () {
+            if (sound.playing()) {
+                sound.pause();
+                this.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                sound.play();
+                this.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        });
+
+        // Next button click event
+        document.getElementById('next').addEventListener('click', function () {
+            // Stop the current song
+            sound.stop();
+
+            // Increment the current song index
+            currentSong++;
+            if (currentSong >= songs.length) {
+                currentSong = 0;
+            }
+
+            // Update the source of the Howl object and play the new song
+            sound = new Howl({
+                src: [songs[currentSong]]
+            });
+            sound.play();
+
+            // Update the current song display and reset play/pause button to pause state
+            document.getElementById('current-song').textContent = songs[currentSong];
+            document.getElementById('play-pause').innerHTML = '<i class="fas fa-pause"></i>';
+        });
+
+        document.getElementById('volume').addEventListener('input', function () {
+            sound.volume(this.value);
+        });
+
+        // Previous button click event
+        document.getElementById('prev').addEventListener('click', function () {
+            // Stop the current song
+            sound.stop();
+
+            // Decrement the current song index
+            currentSong--;
+            if (currentSong < 0) {
+                currentSong = songs.length - 1;
+            }
+
+            // Update the source of the Howl object and play the new song
+            sound = new Howl({
+                src: [songs[currentSong]]
+            });
+            sound.play();
+
+            // Update the current song display and reset play/pause button to pause state
+            document.getElementById('current-song').textContent = songs[currentSong];
+            document.getElementById('play-pause').innerHTML = '<i class="fas fa-pause"></i>';
+        });
+
+// End of script tag
+    </script>
+    <script type="text/javascript">
+        // Set the initial countdown date
+        var countDownDate = new Date("Apr 30, 2023 00:00:00").getTime();
+        var nextCountDownDate = new Date("Sep 2, 2023 00:00:00").getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function () {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Update countdown display
+            document.getElementById("day").innerHTML = days;
+            document.getElementById("hour").innerHTML = hours;
+            document.getElementById("minute").innerHTML = minutes;
+            document.getElementById("second").innerHTML = seconds;
+            // If the count down is finished
+            if (distance < 0) {
+                // Update countdown date to nextCountDownDate
+                countDownDate = nextCountDownDate;
+
+                // Calculate nextCountDownDate based on current countDownDate
+                var currentDate = new Date(countDownDate);
+                if (currentDate.getMonth() === 3 && currentDate.getDate() === 30) {
+                    // If current countdown date is April 30th, set next countdown to September 2nd of same year
+                    nextCountDownDate = new Date(currentDate.getFullYear(), 8, 2).getTime();
+                } else {
+                    // Otherwise set next countdown to April 30th of next year
+                    nextCountDownDate = new Date(currentDate.getFullYear() + 1, 3, 30).getTime();
+                }
+
+            }
+        }, 1000);   </script>
 </body>
 
 </html>
