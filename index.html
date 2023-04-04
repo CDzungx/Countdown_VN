@@ -23,29 +23,13 @@
             <!--02/09 WIKI-->
             <div class="quockhanh">
                 <div class="pl-3 pt-1 has-text-centered is-hidden-mobile" style="position:absolute">
-                    <a href="https://vi.wikipedia.org/wiki/Ngày_Quốc_khánh_(Việt_Nam)" target="_blank">
+                    <a class="wikiBtn" target="_blank">
                         <figure class="image is-64x64 is-inline-block"><img src="/src/wiki.png">
                         </figure>
                     </a>
                 </div>
                 <div class="pl-3 pt-1 has-text-centered is-hidden-tablet" style="position:absolute">
-                    <a href="https://vi.wikipedia.org/wiki/Ngày_Quốc_khánh_(Việt_Nam)" target="_blank">
-                        <figure class="image is-32x32 is-inline-block"><img src="/src/wiki.png">
-                        </figure>
-                    </a>
-                </div>
-            </div>
-
-            <!--30/04 WIKI-->
-            <div class="thongnhat">
-                <div class="pl-3 pt-1 has-text-centered is-hidden-mobile" style="position:absolute">
-                    <a href="https://vi.wikipedia.org/wiki/Sự_kiện_30_tháng_4_năm_1975" target="_blank">
-                        <figure class="image is-64x64 is-inline-block"><img src="/src/wiki.png">
-                        </figure>
-                    </a>
-                </div>
-                <div class="pl-3 pt-1 has-text-centered is-hidden-tablet" style="position:absolute">
-                    <a href="https://vi.wikipedia.org/wiki/Sự_kiện_30_tháng_4_năm_1975" target="_blank">
+                    <a class="wikiBtn" target="_blank">
                         <figure class="image is-32x32 is-inline-block"><img src="/src/wiki.png">
                         </figure>
                     </a>
@@ -53,25 +37,17 @@
             </div>
 
             <!--MAIN-->
-            <div class="box mainbox is-clearfix"
-                style="background: linear-gradient(to bottom, #ee1010ee 0%, #ee1010e8 50%, #0083fdec 50%, #0083fde8 100%);">
+            <div class="box mainBox is-clearfix"
+                ">
                 <div class="mt-2 has-text-centered has-text-white ">
                     <div class="pt-5 is-hidden-mobile"></div>
 
-                    <!--30/04-->
-                    <div class="thongnhat">
-                        <h1 class="title pb-0 is-1 is-2-mobile has-text-white has-text-weight-bold"
+                    <!--Date-->
+                    <div class="date">
+                        <h1 class="countdownTitle title pb-0 is-1 is-2-mobile has-text-white has-text-weight-bold"
                             style="font-family:'hjet'">
-                            THỐNG NHẤT ĐẤT NƯỚC</h1>
-                        <p class="pt-0" style="font-family:'hjet'; font-size: 5em;">30/4</p>
-                    </div>
-
-                    <!--02/09-->
-                    <div class="quockhanh">
-                        <h1 class=" title pb-0 is-1 is-2-mobile has-text-white has-text-weight-bold"
-                            style="font-family:'hjet'">
-                            QUỐC KHÁNH VIỆT NAM</h1>
-                        <p class="pt-0" style="font-family:'hjet'; font-size: 5em;">2/9</p>
+                            </h1>
+                        <p class="countdownDateTitle pt-0" style="font-family:'hjet'; font-size: 5em;"></p>
                     </div>
 
                     <a href="https://chinhphu.vn/" target="_blank">
@@ -180,7 +156,7 @@
                     <div class="field is-grouped" style="justify-content: center; align-items: center; text-align: center;">
                         <div class="control">
                             <div class="input-group">
-                                <input type="range" min="0" max="100" value="50" class="slider" id="volumeSlider">
+                                <input type="range" min="0" max="100" class="slider" id="volumeSlider">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-volume-up"></i>
                                 </span>
@@ -191,7 +167,7 @@
                 <div class="songInfos" style="font-family: 'Roboto Slab', serif;">
                     <div class="subtitle p-0">Sáng tác: <span id="songComposer"></span></div>
                     <div class="subtitle p-0">Thể hiện: <span id="songPerformer"></span></div>
-                    <a id="sourceButton" href="/" target="_blank">
+                    <a id="sourceButton" target="_blank">
                         <button class="button" style="position: absolute; bottom: 7px; right: 7px;">
                             <i class="fa-solid fa-circle-info"></i>
                         </button>

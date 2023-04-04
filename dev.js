@@ -15,6 +15,10 @@ const playButton = document.getElementById("playButton");
 const nextButton = document.getElementById("nextButton");
 const volumeSlider = document.getElementById("volumeSlider");
 const sourceButton = document.querySelector("#sourceButton");
+const wikiBtn = document.querySelectorAll(".wikiBtn");
+const mainBox = document.querySelector(".mainBox");
+const countdownTitle = document.querySelector(".countdownTitle");
+const countdownDateTitle = document.querySelector(".countdownDateTitle");
 
 let currentSongIndex = 0;
 let songs = [
@@ -53,9 +57,31 @@ prevButton.addEventListener("click", prevSong);
 playButton.addEventListener("click", togglePlay);
 nextButton.addEventListener("click", nextSong);
 
+let isFirstOpen = true;
+
 function openPlayer() {
   playerModal.classList.add("is-active");
   updateSongInfo();
+
+  if (isFirstOpen) {
+    isFirstOpen = false;
+
+    const startVolume = 0.25;
+    const targetVolume = 0.65;
+    const duration = 2000;
+    const increment = (targetVolume - startVolume) / (duration / 10);
+    let currentVolume = startVolume;
+
+    const intervalId = setInterval(() => {
+      currentVolume += increment;
+      setVolume(currentVolume);
+
+      if (currentVolume >= targetVolume) {
+        clearInterval(intervalId);
+      }
+    }, 10);
+  }
+
   if (player.pause()) {
     player.play();
     document.getElementById("playIcon").className = "fas fa-pause";
@@ -122,17 +148,22 @@ function updateSongInfo() {
 }
 
 ///// Volume Control /////
-function setVolume() {
-  const volume = parseFloat(volumeSlider.value) / 100;
+function setVolume(volume) {
   player.volume(volume);
+  volumeSlider.value = volume * 100;
 }
-volumeSlider.addEventListener("input", setVolume);
+
+volumeSlider.addEventListener("input", () => {
+  const volume = parseFloat(volumeSlider.value) / 100;
+  setVolume(volume);
+});
 //Mouse wheel volume control
 volumeSlider.addEventListener("wheel", (event) => {
   event.preventDefault();
   const delta = Math.max(-1, Math.min(1, event.deltaY || -event.detail));
   volumeSlider.value = parseInt(volumeSlider.value) - delta;
-  setVolume();
+  const volume = parseFloat(volumeSlider.value) / 100;
+  setVolume(volume);
 });
 
 //Animation
@@ -173,26 +204,27 @@ var x = setInterval(function () {
   document.getElementById("second").innerHTML = seconds;
 
   // Check if current countdown is for Apr 30 or Sept 02 then display correct element
-  const elements = {
-    thongnhat: Array.from(document.getElementsByClassName("thongnhat")),
-    quockhanh: Array.from(document.getElementsByClassName("quockhanh")),
-    mainbox: Array.from(document.getElementsByClassName("mainbox")),
-  };
-
+  
   if (countDownDate === new Date("Apr 30, 2023 00:00:00").getTime()) {
-    elements.thongnhat.forEach((el) => (el.style.display = "block"));
-    elements.quockhanh.forEach((el) => (el.style.display = "none"));
-    elements.mainbox.length > 0 &&
-      (elements.mainbox[0].style.background =
-        "linear-gradient(to bottom, #ee1010ee 0%, #ee1010e8 50%, #0083fdec 50%, #0083fde8 100%);");
+    wikiBtn.forEach(
+      (btn) =>
+        (btn.href = "https://vi.wikipedia.org/wiki/Sự_kiện_30_tháng_4_năm_1975")
+    );
+    countdownTitle.innerHTML = "THỐNG NHẤT ĐẤT NƯỚC";
+    countdownDateTitle.innerHTML = "30/4";
+    mainBox.style.background =
+      "linear-gradient(to bottom, #ee1010ee 0%, #ee1010e8 50%, #0083fdec 50%, #0083fde8 100%)";
   } else if (countDownDate === new Date("Sep 2, 2023 00:00:00").getTime()) {
-    elements.thongnhat.forEach((el) => (el.style.display = "none"));
-    elements.quockhanh.forEach((el) => (el.style.display = "block"));
-    elements.mainbox.length > 0 &&
-      (elements.mainbox[0].style.backgroundImage =
-        "linear-gradient(175deg,#ee1010d5 0%, #cc0606 100%);");
+    wikiBtn.forEach(
+      (btn) =>
+        (btn.href = "https://vi.wikipedia.org/wiki/Ngày_Quốc_khánh_(Việt_Nam)")
+    );
+    countdownTitle.innerHTML = "QUỐC KHÁNH VIỆT NAM";
+    countdownDateTitle.innerHTML = "2/9";
+    mainBox.style.backgroundImage =
+      "linear-gradient(175deg,#ee1010d5 0%, #cc0606 100%)";
   }
-  elements.mainbox[0].style.display = "block";
+  mainBox.style.display = "block";
 
   // If the count down is finished
   if (distance < 0) {
