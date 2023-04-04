@@ -23,6 +23,10 @@ section {
   align-items: center;
 }
 
+.mainbox{
+  display: none;
+}
+
 .quockhanh,
 .thongnhat {
   display: none;
@@ -63,6 +67,24 @@ section {
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+}
+
+.slider {
+  position: relative;
+}
+
+.volume-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 100%;
+  margin-left: 10px;
+  font-size: 1.5rem;
+  color: #3273dc;
+}
+
+.slider[value="0"] + .volume-icon {
+  color: #f14668;
 }
 
 .title {

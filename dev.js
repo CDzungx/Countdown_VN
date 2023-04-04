@@ -24,7 +24,7 @@ let songs = [
     performer: "Hữu Nội - Hợp ca nam nữ Đài TNVN",
     src: "/soundtrack/vuimoduong.mp3",
     nguon: "https://bcdcnt.net/bai-hat/vui-mo-duong-731.html",
-    thongtinthem: ""
+    thongtinthem: "",
   },
   {
     title: "Đất Nước Trọn Niềm Vui",
@@ -32,7 +32,7 @@ let songs = [
     performer: "NSND Tạ Minh Tâm",
     src: "/soundtrack/datnuoctronniemvui.mp3",
     nguon: "https://www.youtube.com/watch?v=6KXKVhqQ2l4",
-    thongtinthem: ""
+    thongtinthem: "",
   },
 
   // ...
@@ -52,14 +52,14 @@ closeButton.addEventListener("click", closePlayer);
 prevButton.addEventListener("click", prevSong);
 playButton.addEventListener("click", togglePlay);
 nextButton.addEventListener("click", nextSong);
-volumeSlider.addEventListener("input", setVolume);
 
 function openPlayer() {
   playerModal.classList.add("is-active");
   updateSongInfo();
   if (player.pause()) {
-  player.play();
-  document.getElementById("playIcon").className = "fas fa-pause";}
+    player.play();
+    document.getElementById("playIcon").className = "fas fa-pause";
+  }
 }
 
 function closePlayer() {
@@ -114,10 +114,6 @@ function nextSong() {
   document.getElementById("playIcon").className = "fas fa-pause";
 }
 
-function setVolume() {
-  player.volume(this.value / 100);
-}
-
 function updateSongInfo() {
   songTitle.innerHTML = songs[currentSongIndex].title;
   songComposer.innerHTML = songs[currentSongIndex].composer;
@@ -125,13 +121,26 @@ function updateSongInfo() {
   sourceButton.href = songs[currentSongIndex].nguon;
 }
 
+///// Volume Control /////
+function setVolume() {
+  const volume = parseFloat(volumeSlider.value) / 100;
+  player.volume(volume);
+}
+volumeSlider.addEventListener("input", setVolume);
+//Mouse wheel volume control
+volumeSlider.addEventListener("wheel", (event) => {
+  event.preventDefault();
+  const delta = Math.max(-1, Math.min(1, event.deltaY || -event.detail));
+  volumeSlider.value = parseInt(volumeSlider.value) - delta;
+  setVolume();
+});
 
 //Animation
-document.getElementById("playerModal").addEventListener("click", function(){
-    document.getElementById("playerModal").classList.add("animated", "fadeIn");
+document.getElementById("playerModal").addEventListener("click", function () {
+  document.getElementById("playerModal").classList.add("animated", "fadeIn");
 });
-document.getElementById("closeButton").addEventListener("click", function(){
-    document.getElementById("playerModal").classList.add("animated", "fadeOut");
+document.getElementById("closeButton").addEventListener("click", function () {
+  document.getElementById("playerModal").classList.add("animated", "fadeOut");
 });
 
 /////////////////////////////////////////////
@@ -162,35 +171,28 @@ var x = setInterval(function () {
   document.getElementById("hour").innerHTML = hours;
   document.getElementById("minute").innerHTML = minutes;
   document.getElementById("second").innerHTML = seconds;
-  
-// Check if current countdown is for Apr 30 or Sept 02
-if (countDownDate === new Date("Apr 30, 2023 00:00:00").getTime()) {
-  let elements = document.getElementsByClassName("thongnhat");
-  for (let i = 0; i < elements.length; i++) {
-      elements[i].style.display = "block";
+
+  // Check if current countdown is for Apr 30 or Sept 02 then display correct element
+  const elements = {
+    thongnhat: Array.from(document.getElementsByClassName("thongnhat")),
+    quockhanh: Array.from(document.getElementsByClassName("quockhanh")),
+    mainbox: Array.from(document.getElementsByClassName("mainbox")),
+  };
+
+  if (countDownDate === new Date("Apr 30, 2023 00:00:00").getTime()) {
+    elements.thongnhat.forEach((el) => (el.style.display = "block"));
+    elements.quockhanh.forEach((el) => (el.style.display = "none"));
+    elements.mainbox.length > 0 &&
+      (elements.mainbox[0].style.background =
+        "linear-gradient(to bottom, #ee1010ee 0%, #ee1010e8 50%, #0083fdec 50%, #0083fde8 100%);");
+  } else if (countDownDate === new Date("Sep 2, 2023 00:00:00").getTime()) {
+    elements.thongnhat.forEach((el) => (el.style.display = "none"));
+    elements.quockhanh.forEach((el) => (el.style.display = "block"));
+    elements.mainbox.length > 0 &&
+      (elements.mainbox[0].style.backgroundImage =
+        "linear-gradient(175deg,#ee1010d5 0%, #cc0606 100%);");
   }
-  elements = document.getElementsByClassName("quockhanh");
-  for (let i = 0; i < elements.length; i++) {
-      elements[i].style.display = "none";
-  }
-  elements = document.getElementsByClassName("mainbox");
-  if (elements.length > 0) {
-      elements[0].style.background = "linear-gradient(to bottom, #ee1010ee 0%, #ee1010e8 50%, #0083fdec 50%, #0083fde8 100%);";
-  }
-} else if (countDownDate === new Date("Sep 2, 2023 00:00:00").getTime()) {
-  let elements = document.getElementsByClassName("thongnhat");
-  for (let i = 0; i < elements.length; i++) {
-      elements[i].style.display = "none";
-  }
-  elements = document.getElementsByClassName("quockhanh");
-  for (let i = 0; i < elements.length; i++) {
-      elements[i].style.display = "block";
-  }
-  elements = document.getElementsByClassName("mainbox");
-  if (elements.length > 0) {
-      elements[0].style.backgroundImage = "linear-gradient(175deg,#ee1010d5 0%, #cc0606 100%);";
-  }
-}
+  elements.mainbox[0].style.display = "block";
 
   // If the count down is finished
   if (distance < 0) {
@@ -212,3 +214,11 @@ if (countDownDate === new Date("Apr 30, 2023 00:00:00").getTime()) {
     }
   }
 }, 1000);
+
+//CONSOLE THINGS
+// console.clear(); // clear group
+console.log(
+  "%cTrang web được viết với mục đích học tập của cá nhân cùng trong sự biết ơn tới những người chiến sĩ, những người mẹ Việt Nam anh hùng, những người đã góp sức thống nhất đất nước Việt Nam!",
+  'color: yellow; font-size:20px; background-color:red; font-family: "Roboto Slab", serif; font-weight:600;'
+);
+// console.log = function() {}

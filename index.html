@@ -144,7 +144,7 @@
                     <span class="icon">
                         <i class="fas fa-headphones"></i>
                     </span>
-                    <div class="subtitle">Music</div>
+                    <div class="subtitle">Nhạc</div>
                 </button>
             </div>
         </div>
@@ -155,38 +155,54 @@
         <div class="modal-background"></div>
         <div class="modal-content">
             <div class="box" style="position: relative;">
-                <div class="title is-1" style="text-align:center; font-weight: bolder;">TRÌNH PHÁT NHẠC</div>
-                <div class="title is-3" style="text-align:center; font-family: 'Roboto Slab', serif;"><span
-                        id="songTitle"></span></div>
-                <div class="block" style="text-align: center;">
-                    <div class="field has-addons"
-                        style="justify-content: center; align-items: center; text-align: center;">
+                <div class="title is-1 has-text-centered" style="font-weight: bolder;">TRÌNH PHÁT NHẠC</div>
+                <div class="title is-3 has-text-centered" style="font-family: 'Roboto Slab', serif;">
+                    <span id="songTitle"></span>
+                </div>
+                <div class="block has-text-centered">
+                    <div class="field is-grouped" style="justify-content: center">
                         <div class="control">
-                            <button class="button" id="prevButton"><i class="fas fa-step-backward"></i></button>
+                            <button class="button is-warning" id="prevButton">
+                                <i class="fas fa-step-backward"></i>
+                            </button>
                         </div>
                         <div class="control">
-                            <button class="button" id="playButton"><i class="fas fa-play" id="playIcon"></i></button>
+                            <button class="button is-active" id="playButton">
+                                <i class="fas fa-play" id="playIcon"></i>
+                            </button>
                         </div>
                         <div class="control">
-                            <button class="button" id="nextButton"><i class="fas fa-step-forward"></i></button>
+                            <button class="button is-warning" id="nextButton">
+                                <i class="fas fa-step-forward"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="field">
-                        <input type="range" min="0" max="100" value="50" class="slider" id="volumeSlider">
+                    <div class="field is-grouped" style="justify-content: center; align-items: center; text-align: center;">
+                        <div class="control">
+                            <div class="input-group">
+                                <input type="range" min="0" max="100" value="50" class="slider" id="volumeSlider">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-volume-up"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="songInfos" style="font-family: 'Roboto Slab', serif;">
                     <div class="subtitle p-0">Sáng tác: <span id="songComposer"></span></div>
                     <div class="subtitle p-0">Thể hiện: <span id="songPerformer"></span></div>
-                    <a id="sourceButton" href="/" target="_blank"><button class="button"
-                            style="position: absolute; bottom: 7px; right: 7px;"><i
-                                class="fa-solid fa-circle-info"></i></button></a>
+                    <a id="sourceButton" href="/" target="_blank">
+                        <button class="button" style="position: absolute; bottom: 7px; right: 7px;">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
-
         <button class="modal-close is-large" aria-label="close" id="closeButton"></button>
     </div>
+
+
 
 
 </body>
