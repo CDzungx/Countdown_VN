@@ -25,7 +25,7 @@ let songs = [
   {
     title: "Vui Mở Đường",
     composer: "Đỗ Nhuận",
-    performer: "Hữu Nội - Hợp ca nam nữ Đài TNVN",
+    performer: "NSƯT Hữu Nội - Hợp ca nam nữ Đài TNVN",
     src: "/soundtrack/vuimoduong.mp3",
     nguon: "https://bcdcnt.net/bai-hat/vui-mo-duong-731.html",
     thongtinthem: "",
@@ -33,9 +33,9 @@ let songs = [
   {
     title: "Đất Nước Trọn Niềm Vui",
     composer: "Hoàng Hà",
-    performer: "NSND Tạ Minh Tâm",
+    performer: "NSƯT Hữu Nội",
     src: "/soundtrack/datnuoctronniemvui.mp3",
-    nguon: "https://www.youtube.com/watch?v=6KXKVhqQ2l4",
+    nguon: "https://bcdcnt.net/bai-hat/dat-nuoc-tron-niem-vui-512.html",
     thongtinthem: "",
   },
 
@@ -65,21 +65,7 @@ function openPlayer() {
 
   if (isFirstOpen) {
     isFirstOpen = false;
-
-    const startVolume = 0.25;
-    const targetVolume = 0.65;
-    const duration = 2000;
-    const increment = (targetVolume - startVolume) / (duration / 10);
-    let currentVolume = startVolume;
-
-    const intervalId = setInterval(() => {
-      currentVolume += increment;
-      setVolume(currentVolume);
-
-      if (currentVolume >= targetVolume) {
-        clearInterval(intervalId);
-      }
-    }, 10);
+    slowVolumeUp()
   }
 
   if (player.pause()) {
@@ -93,11 +79,7 @@ function closePlayer() {
 }
 
 function prevSong() {
-  if (currentSongIndex === 0) {
-    currentSongIndex = songs.length - 1;
-  } else {
-    currentSongIndex--;
-  }
+  currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
   player.stop();
   player = new Howl({
     src: [songs[currentSongIndex].src],
@@ -122,11 +104,7 @@ function togglePlay() {
 }
 
 function nextSong() {
-  if (currentSongIndex === songs.length - 1) {
-    currentSongIndex = 0;
-  } else {
-    currentSongIndex++;
-  }
+  currentSongIndex = (currentSongIndex + 1) % songs.length;
   player.stop();
   player = new Howl({
     src: [songs[currentSongIndex].src],
@@ -141,30 +119,51 @@ function nextSong() {
 }
 
 function updateSongInfo() {
-  songTitle.innerHTML = songs[currentSongIndex].title;
-  songComposer.innerHTML = songs[currentSongIndex].composer;
-  songPerformer.innerHTML = songs[currentSongIndex].performer;
-  sourceButton.href = songs[currentSongIndex].nguon;
+  const currentSong = songs[currentSongIndex];
+  songTitle.innerHTML = `${currentSong.title}`;
+  songComposer.innerHTML = `${currentSong.composer}`;
+  songPerformer.innerHTML = `${currentSong.performer}`;
+  sourceButton.href = `${currentSong.nguon}`;
 }
 
 ///// Volume Control /////
+volumeSlider.addEventListener("input", handleVolumeInput);
+volumeSlider.addEventListener("wheel", handleVolumeWheel);
+
 function setVolume(volume) {
   player.volume(volume);
   volumeSlider.value = volume * 100;
 }
 
-volumeSlider.addEventListener("input", () => {
+function handleVolumeInput() {
   const volume = parseFloat(volumeSlider.value) / 100;
   setVolume(volume);
-});
-//Mouse wheel volume control
-volumeSlider.addEventListener("wheel", (event) => {
+}
+
+//Mouse wheel control
+function handleVolumeWheel(event) {
   event.preventDefault();
   const delta = Math.max(-1, Math.min(1, event.deltaY || -event.detail));
-  volumeSlider.value = parseInt(volumeSlider.value) - delta;
-  const volume = parseFloat(volumeSlider.value) / 100;
-  setVolume(volume);
-});
+  volumeSlider.value = parseInt(volumeSlider.value) - 5*delta;
+  handleVolumeInput();
+}
+
+function slowVolumeUp() {
+  const startVolume = 0.3;
+  const targetVolume = 0.75;
+  const duration = 2000;
+  const increment = (targetVolume - startVolume) / (duration / 10);
+  let currentVolume = startVolume;
+
+  const intervalId = setInterval(() => {
+    currentVolume += increment;
+    setVolume(currentVolume);
+
+    if (currentVolume >= targetVolume) {
+      clearInterval(intervalId);
+    }
+  }, 10);
+}
 
 //Animation
 document.getElementById("playerModal").addEventListener("click", function () {
@@ -204,7 +203,7 @@ var x = setInterval(function () {
   document.getElementById("second").innerHTML = seconds;
 
   // Check if current countdown is for Apr 30 or Sept 02 then display correct element
-  
+
   if (countDownDate === new Date("Apr 30, 2023 00:00:00").getTime()) {
     wikiBtn.forEach(
       (btn) =>
@@ -250,7 +249,7 @@ var x = setInterval(function () {
 //CONSOLE THINGS
 // console.clear(); // clear group
 console.log(
-  "%cTrang web được viết với mục đích học tập của cá nhân cùng trong sự biết ơn tới những người chiến sĩ, những người mẹ Việt Nam anh hùng, những người đã góp sức thống nhất đất nước Việt Nam!",
+  "%cTrang web được viết với mục đích học tập của cá nhân trong sự biết ơn tới những người chiến sĩ, những người mẹ Việt Nam anh hùng, những người đã góp sức thống nhất toàn vẹn lãnh thổ Việt Nam!",
   'color: yellow; font-size:20px; background-color:red; font-family: "Roboto Slab", serif; font-weight:600;'
 );
 // console.log = function() {}

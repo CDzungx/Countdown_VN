@@ -9,7 +9,7 @@
     <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css>
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/gentius" type="text/css" />
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/hjet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />-->
     <link rel="stylesheet" href="dev.css" />
     <script src="https://kit.fontawesome.com/3590ed5741.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/howler@2.2.3/dist/howler.min.js"></script>
@@ -17,112 +17,109 @@
 </head>
 
 <body>
+    <video id="bgVideo" autoplay loop muted>
+        <source src="/src/bg.webm" type="video/webm">
+    </video>
     <section class="section is-vcentered">
         <div class="container">
-
-            <!--02/09 WIKI-->
-            <div class="quockhanh">
-                <div class="pl-3 pt-1 has-text-centered is-hidden-mobile" style="position:absolute">
-                    <a class="wikiBtn" target="_blank">
-                        <figure class="image is-64x64 is-inline-block"><img src="/src/wiki.png">
-                        </figure>
-                    </a>
-                </div>
-                <div class="pl-3 pt-1 has-text-centered is-hidden-tablet" style="position:absolute">
-                    <a class="wikiBtn" target="_blank">
-                        <figure class="image is-32x32 is-inline-block"><img src="/src/wiki.png">
-                        </figure>
-                    </a>
-                </div>
+            <!--WIKI-->
+            <div class="pl-3 pt-1 has-text-centered is-hidden-mobile" style="position:absolute">
+                <a class="wikiBtn" target="_blank">
+                    <figure class="image is-64x64 is-inline-block"><img src="/src/wiki.png">
+                    </figure>
+                </a>
+            </div>
+            <div class="pl-3 pt-1 has-text-centered is-hidden-tablet" style="position:absolute">
+                <a class="wikiBtn" target="_blank">
+                    <figure class="image is-32x32 is-inline-block"><img src="/src/wiki.png">
+                    </figure>
+                </a>
             </div>
 
             <!--MAIN-->
-            <div class="box mainBox is-clearfix"
-                ">
-                <div class="mt-2 has-text-centered has-text-white ">
-                    <div class="pt-5 is-hidden-mobile"></div>
+            <div class="box mainBox is-clearfix" ">
+                <div class=" mt-2 has-text-centered has-text-white ">
+                    <div class=" pt-5 is-hidden-mobile"></div>
 
-                    <!--Date-->
-                    <div class="date">
-                        <h1 class="countdownTitle title pb-0 is-1 is-2-mobile has-text-white has-text-weight-bold"
-                            style="font-family:'hjet'">
-                            </h1>
-                        <p class="countdownDateTitle pt-0" style="font-family:'hjet'; font-size: 5em;"></p>
-                    </div>
+            <!--Date-->
+            <div class="date">
+                <h1 class="countdownTitle title pb-0 is-1 is-2-mobile has-text-white has-text-weight-bold"
+                    style="font-family:'hjet'">
+                </h1>
+                <p class="countdownDateTitle pt-0" style="font-family:'hjet'; font-size: 5em;"></p>
+            </div>
 
+            <a href="https://chinhphu.vn/" target="_blank">
+                <figure class="image is-hidden-tablet is-128x128 is-inline-block"><img src="/src/star.png">
+                </figure>
+            </a>
+            <div class="columns is-hidden-mobile is-variable is-5-desktop">
+                <div class="column">
                     <a href="https://chinhphu.vn/" target="_blank">
-                        <figure class="image is-hidden-tablet is-128x128 is-inline-block"><img src="/src/star.png">
+                        <figure class="image is-pulled-right is-128x128 is-inline-block"><img src="/src/star.png">
                         </figure>
                     </a>
-                    <div class="columns is-hidden-mobile is-variable is-5-desktop">
-                        <div class="column">
-                            <a href="https://chinhphu.vn/" target="_blank">
-                                <figure class="image is-pulled-right is-128x128 is-inline-block"><img
-                                        src="/src/star.png">
-                                </figure>
-                            </a>
-                        </div>
-                        <div class="column">
-                            <a href="https://dangcongsan.vn/" target="_blank">
-                                <figure class="image is-pulled-left is-128x128 is-inline-block"><img
-                                        src="/src/dcsvn.png">
-                                </figure>
-                            </a>
-                        </div>
-                    </div>
                 </div>
-
-                <!--Countdown boxes-->
-                <div class="countdown px-0">
-                    <div
-                        class="columns is-multiline is-mobile is-centered has-text-centered has-content-centered has-text-weight-bold pt-4">
-                        <div class="column is-one-fifth-desktop is-one-third-mobile">
-                            <div class="box boxcd p-4"><span class="is-size-1 is-size-2-mobile p-0" id="day"></span>
-                                <div class="box p-0"
-                                    style="background-image: linear-gradient(160deg, rgba(255, 227, 227, 0.993) 0%, #cee0ff 100%);">
-                                    <p class="subtitle p-0 is-3 is-size-5-mobile">Ngày</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-one-fifth-desktop is-one-third-mobile">
-                            <div class="box boxcd p-4"><span class="is-size-1 is-size-2-mobile p-0" id="hour"></span>
-                                <div class="box p-0"
-                                    style="background-image: linear-gradient(160deg, rgba(255, 227, 227, 0.993) 0%, #cee0ff 100%);">
-                                    <p class="subtitle p-0 is-3 is-size-5-mobile">Giờ</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-one-fifth-desktop is-one-third-mobile">
-                            <div class="box boxcd p-4"><span class="is-size-1 is-size-2-mobile p-0" id="minute"></span>
-                                <div class="box p-0"
-                                    style="background-image: linear-gradient(160deg, rgba(255, 227, 227, 0.993) 0%, #cee0ff 100%);">
-                                    <p class="subtitle p-0 is-3 is-size-5-mobile">Phút</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-one-fifth-desktop">
-                            <div class="box boxcd p-4"><span class="is-size-1 is-size-1-mobile p-0" id="second"></span>
-                                <div class="box p-0"
-                                    style="background-image: linear-gradient(160deg, rgba(255, 227, 227, 0.993) 0%, #cee0ff 100%);">
-                                    <p class="subtitle p-0 is-3 is-size-4-mobile">Giây</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="column">
+                    <a href="https://dangcongsan.vn/" target="_blank">
+                        <figure class="image is-pulled-left is-128x128 is-inline-block"><img src="/src/dcsvn.png">
+                        </figure>
+                    </a>
                 </div>
-
-                <!--Under-->
-                <div class="pb-1 is-hidden-mobile"></div>
-                <a href=https://cdzungx.dev>
-                    <div class="button mt-3 is-pulled-left"><i class="fa-solid fa-house"></i></div>
-                </a>
-                <button id="openPlayer" class="button ms-btn is-primary m-4">
-                    <span class="icon">
-                        <i class="fas fa-headphones"></i>
-                    </span>
-                    <div class="subtitle">Nhạc</div>
-                </button>
             </div>
+        </div>
+
+        <!--Countdown boxes-->
+        <div class="countdown px-0">
+            <div
+                class="columns is-multiline is-mobile is-centered has-text-centered has-content-centered has-text-weight-bold pt-4">
+                <div class="column is-one-fifth-desktop is-one-third-mobile">
+                    <div class="box boxcd p-4"><span class="is-size-1 is-size-2-mobile p-0" id="day"></span>
+                        <div class="box p-0"
+                            style="background-image: linear-gradient(160deg, rgba(255, 227, 227, 0.993) 0%, #cee0ff 100%);">
+                            <p class="subtitle p-0 is-3 is-size-5-mobile">Ngày</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-fifth-desktop is-one-third-mobile">
+                    <div class="box boxcd p-4"><span class="is-size-1 is-size-2-mobile p-0" id="hour"></span>
+                        <div class="box p-0"
+                            style="background-image: linear-gradient(160deg, rgba(255, 227, 227, 0.993) 0%, #cee0ff 100%);">
+                            <p class="subtitle p-0 is-3 is-size-5-mobile">Giờ</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-fifth-desktop is-one-third-mobile">
+                    <div class="box boxcd p-4"><span class="is-size-1 is-size-2-mobile p-0" id="minute"></span>
+                        <div class="box p-0"
+                            style="background-image: linear-gradient(160deg, rgba(255, 227, 227, 0.993) 0%, #cee0ff 100%);">
+                            <p class="subtitle p-0 is-3 is-size-5-mobile">Phút</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-fifth-desktop">
+                    <div class="box boxcd p-4"><span class="is-size-1 is-size-1-mobile p-0" id="second"></span>
+                        <div class="box p-0"
+                            style="background-image: linear-gradient(160deg, rgba(255, 227, 227, 0.993) 0%, #cee0ff 100%);">
+                            <p class="subtitle p-0 is-3 is-size-4-mobile">Giây</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Under-->
+        <div class="pb-1 is-hidden-mobile"></div>
+        <a href=https://cdzungx.dev>
+            <div class="button mt-3 is-pulled-left"><i class="fa-solid fa-house"></i></div>
+        </a>
+        <button id="openPlayer" class="button ms-btn is-primary m-4">
+            <span class="icon">
+                <i class="fas fa-headphones"></i>
+            </span>
+            <div class="subtitle">Nhạc</div>
+        </button>
+        </div>
         </div>
     </section>
 
@@ -153,7 +150,8 @@
                             </button>
                         </div>
                     </div>
-                    <div class="field is-grouped" style="justify-content: center; align-items: center; text-align: center;">
+                    <div class="field is-grouped"
+                        style="justify-content: center; align-items: center; text-align: center;">
                         <div class="control">
                             <div class="input-group">
                                 <input type="range" min="0" max="100" class="slider" id="volumeSlider">
@@ -167,6 +165,7 @@
                 <div class="songInfos" style="font-family: 'Roboto Slab', serif;">
                     <div class="subtitle p-0">Sáng tác: <span id="songComposer"></span></div>
                     <div class="subtitle p-0">Thể hiện: <span id="songPerformer"></span></div>
+                    <div class="thongtin subtitle p-0"><span id="thongtinthem"></span></div>
                     <a id="sourceButton" target="_blank">
                         <button class="button" style="position: absolute; bottom: 7px; right: 7px;">
                             <i class="fa-solid fa-circle-info"></i>
