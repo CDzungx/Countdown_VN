@@ -62,12 +62,10 @@ let isFirstOpen = true;
 function openPlayer() {
   playerModal.classList.add("is-active");
   updateSongInfo();
-
   if (isFirstOpen) {
     isFirstOpen = false;
-    slowVolumeUp()
+    slowVolumeUp();
   }
-
   if (player.pause()) {
     player.play();
     document.getElementById("playIcon").className = "fas fa-pause";
@@ -76,21 +74,6 @@ function openPlayer() {
 
 function closePlayer() {
   playerModal.classList.remove("is-active");
-}
-
-function prevSong() {
-  currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-  player.stop();
-  player = new Howl({
-    src: [songs[currentSongIndex].src],
-    html5: true,
-    onend: function () {
-      nextSong();
-    },
-  });
-  updateSongInfo();
-  player.play();
-  document.getElementById("playIcon").className = "fas fa-pause";
 }
 
 function togglePlay() {
@@ -103,12 +86,29 @@ function togglePlay() {
   }
 }
 
+function prevSong() {
+  currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+  player.stop();
+  player = new Howl({
+    src: [songs[currentSongIndex].src],
+    html5: true,
+    volume: currentVolume,
+    onend: function () {
+      nextSong();
+    },
+  });
+  updateSongInfo();
+  player.play();
+  document.getElementById("playIcon").className = "fas fa-pause";
+}
+
 function nextSong() {
   currentSongIndex = (currentSongIndex + 1) % songs.length;
   player.stop();
   player = new Howl({
     src: [songs[currentSongIndex].src],
     html5: true,
+    volume: currentVolume,
     onend: function () {
       nextSong();
     },
@@ -127,12 +127,15 @@ function updateSongInfo() {
 }
 
 ///// Volume Control /////
+let currentVolume = 0.3; // Initialize current volume to 0.3
+
 volumeSlider.addEventListener("input", handleVolumeInput);
 volumeSlider.addEventListener("wheel", handleVolumeWheel);
 
 function setVolume(volume) {
   player.volume(volume);
   volumeSlider.value = volume * 100;
+  currentVolume = volume; // Update current volume
 }
 
 function handleVolumeInput() {
@@ -140,20 +143,19 @@ function handleVolumeInput() {
   setVolume(volume);
 }
 
-//Mouse wheel control
+// Mouse wheel control
 function handleVolumeWheel(event) {
   event.preventDefault();
   const delta = Math.max(-1, Math.min(1, event.deltaY || -event.detail));
-  volumeSlider.value = parseInt(volumeSlider.value) - 5*delta;
+  volumeSlider.value = parseInt(volumeSlider.value) - 5 * delta;
   handleVolumeInput();
 }
 
 function slowVolumeUp() {
-  const startVolume = 0.3;
-  const targetVolume = 0.75;
-  const duration = 2000;
+  const startVolume = currentVolume; // Use current volume as start volume
+  const targetVolume = 0.7;
+  const duration = 1000;
   const increment = (targetVolume - startVolume) / (duration / 10);
-  let currentVolume = startVolume;
 
   const intervalId = setInterval(() => {
     currentVolume += increment;
