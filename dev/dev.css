@@ -73,7 +73,7 @@ section {
 #song-progress-bar {
   width: 100%;
   height: 5px;
-  background-color: #7b7b7b;
+  background-color: #000000;
   position: relative;
 }
 
@@ -86,7 +86,7 @@ section {
 #song-progress-controller {
   width: 10px;
   height: 20px;
-  background-color: #ff8800;
+  background-color: #1ba839;
   position: absolute;
   top: -8px;
   right: -5px;

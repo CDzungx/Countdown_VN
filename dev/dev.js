@@ -204,7 +204,7 @@ function playSong() {
 }
 
 document.getElementById("skipBackwardButton").addEventListener("click", skipBackwardButton);
-document.getElementById("skipForwardButton").addEventListener("click", skipForwardButton);
+document.getElementById("skipForwardButton").addEventListener("click", skipForwardButton); // Add skipForwardButton event listener
 
 // Skip 15 seconds forward
 function skip15SecondsForward() {
