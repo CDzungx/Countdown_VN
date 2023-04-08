@@ -1,9 +1,3 @@
-/////////////////////////////////////////////
-/////////////////////////////////////////////
-///////////////MUSIC PLAYER//////////////////
-/////////////////////////////////////////////
-/////////////////////////////////////////////
-
 const openPlayerBtn = document.querySelector("#openPlayer");
 const playerModal = document.querySelector("#playerModal");
 const closeButton = document.querySelector("#closeButton");
@@ -23,7 +17,75 @@ const progressBar = document.querySelector("#song-progress-bar");
 const progress = document.querySelector("#song-progress");
 const progressController = document.querySelector("#song-progress-controller");
 const timer = document.querySelector("#song-timer");
+const section = document.querySelector(".section");
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+///////////////COUNTDOWN/////////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+// Set the initial countdown date
+var countDownDate = new Date("Apr 30, 2023 00:00:00").getTime();
+var nextCountDownDate = new Date("Sep 2, 2023 00:00:00").getTime();
 
+var x = setInterval(function () {
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  document.getElementById("day").innerHTML = days;
+  document.getElementById("hour").innerHTML = hours;
+  document.getElementById("minute").innerHTML = minutes;
+  document.getElementById("second").innerHTML = seconds;
+  if (countDownDate === new Date("Apr 30, 2023 00:00:00").getTime()) {
+    wikiBtn.forEach(
+      (btn) =>
+        (btn.href = "https://vi.wikipedia.org/wiki/Sự_kiện_30_tháng_4_năm_1975")
+    );
+    countdownTitle.innerHTML = "THỐNG NHẤT ĐẤT NƯỚC";
+    countdownDateTitle.innerHTML = "30/4";
+    mainBox.style.background =
+      "linear-gradient(to bottom, #ee1010ee 0%, #ee1010e8 50%, #0083fdec 50%, #0083fde8 100%)";
+  } else if (countDownDate === new Date("Sep 2, 2023 00:00:00").getTime()) {
+    wikiBtn.forEach(
+      (btn) =>
+        (btn.href = "https://vi.wikipedia.org/wiki/Ngày_Quốc_khánh_(Việt_Nam)")
+    );
+    countdownTitle.innerHTML = "QUỐC KHÁNH VIỆT NAM";
+    countdownDateTitle.innerHTML = "2/9";
+    mainBox.style.backgroundImage =
+      "linear-gradient(175deg,#ee1010d5 0%, #cc0606 100%)";
+  }
+  
+  section.style.display = "block";
+
+  // If the count down is finished
+  if (distance < 0) {
+    // Update countdown date to nextCountDownDate
+    countDownDate = nextCountDownDate;
+
+    // Calculate nextCountDownDate based on current countDownDate
+    var currentDate = new Date(countDownDate);
+    if (currentDate.getMonth() === 3 && currentDate.getDate() === 30) {
+      // If current countdown date is April 30th, set next countdown to September 2nd of same year
+      nextCountDownDate = new Date(currentDate.getFullYear(), 8, 2).getTime();
+    } else {
+      // Otherwise set next countdown to April 30th of next year
+      nextCountDownDate = new Date(
+        currentDate.getFullYear() + 1,
+        3,
+        30
+      ).getTime();
+    }
+  }
+}, 1000);
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+///////////////MUSIC PLAYER//////////////////
+/////////////////////////////////////////////
+/////////////////////////////////////////////
 
 let currentSongIndex = 0;
 let songs = [
@@ -67,6 +129,7 @@ let isFirstOpen = true;
 function openPlayer() {
   playerModal.classList.add("is-active");
   updateSongInfo();
+  playerModal.classList.add("fadeInSlow");
   if (isFirstOpen) {
     isFirstOpen = false;
     slowVolumeUp();
@@ -209,7 +272,7 @@ document.getElementById("skipForwardButton").addEventListener("click", skipForwa
 // Skip 15 seconds forward
 function skip15SecondsForward() {
   const currentPosition = player.seek();
-  const targetPosition = currentPosition + 15;
+  const targetPosition = currentPosition + 10;
   player.seek(targetPosition);
   updateSongProgressBar();
 }
@@ -217,7 +280,7 @@ function skip15SecondsForward() {
 // Skip 15 seconds backward
 function skip15SecondsBackward() {
   const currentPosition = player.seek();
-  const targetPosition = currentPosition - 15;
+  const targetPosition = currentPosition - 10;
   player.seek(targetPosition);
   updateSongProgressBar();
 }
@@ -239,88 +302,6 @@ function formatTime(seconds) {
   const remainingSeconds = Math.floor(seconds % 60);
   return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
 }
-
-
-//Animation
-document.getElementById("playerModal").addEventListener("click", function () {
-  document.getElementById("playerModal").classList.add("animated", "fadeIn");
-});
-document.getElementById("closeButton").addEventListener("click", function () {
-  document.getElementById("playerModal").classList.add("animated", "fadeOut");
-});
-
-/////////////////////////////////////////////
-/////////////////////////////////////////////
-///////////////COUNTDOWN/////////////////////
-/////////////////////////////////////////////
-/////////////////////////////////////////////
-// Set the initial countdown date
-var countDownDate = new Date("Apr 30, 2023 00:00:00").getTime();
-var nextCountDownDate = new Date("Sep 2, 2023 00:00:00").getTime();
-
-// Update the count down every 1 second
-var x = setInterval(function () {
-  // Get today's date and time
-  var now = new Date().getTime();
-
-  // Find the distance between now and the count down date
-  var distance = countDownDate - now;
-
-  // Time calculations for days, hours, minutes and seconds
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  // Update countdown display
-  document.getElementById("day").innerHTML = days;
-  document.getElementById("hour").innerHTML = hours;
-  document.getElementById("minute").innerHTML = minutes;
-  document.getElementById("second").innerHTML = seconds;
-
-  // Check if current countdown is for Apr 30 or Sept 02 then display correct element
-
-  if (countDownDate === new Date("Apr 30, 2023 00:00:00").getTime()) {
-    wikiBtn.forEach(
-      (btn) =>
-        (btn.href = "https://vi.wikipedia.org/wiki/Sự_kiện_30_tháng_4_năm_1975")
-    );
-    countdownTitle.innerHTML = "THỐNG NHẤT ĐẤT NƯỚC";
-    countdownDateTitle.innerHTML = "30/4";
-    mainBox.style.background =
-      "linear-gradient(to bottom, #ee1010ee 0%, #ee1010e8 50%, #0083fdec 50%, #0083fde8 100%)";
-  } else if (countDownDate === new Date("Sep 2, 2023 00:00:00").getTime()) {
-    wikiBtn.forEach(
-      (btn) =>
-        (btn.href = "https://vi.wikipedia.org/wiki/Ngày_Quốc_khánh_(Việt_Nam)")
-    );
-    countdownTitle.innerHTML = "QUỐC KHÁNH VIỆT NAM";
-    countdownDateTitle.innerHTML = "2/9";
-    mainBox.style.backgroundImage =
-      "linear-gradient(175deg,#ee1010d5 0%, #cc0606 100%)";
-  }
-  mainBox.style.display = "block";
-
-  // If the count down is finished
-  if (distance < 0) {
-    // Update countdown date to nextCountDownDate
-    countDownDate = nextCountDownDate;
-
-    // Calculate nextCountDownDate based on current countDownDate
-    var currentDate = new Date(countDownDate);
-    if (currentDate.getMonth() === 3 && currentDate.getDate() === 30) {
-      // If current countdown date is April 30th, set next countdown to September 2nd of same year
-      nextCountDownDate = new Date(currentDate.getFullYear(), 8, 2).getTime();
-    } else {
-      // Otherwise set next countdown to April 30th of next year
-      nextCountDownDate = new Date(
-        currentDate.getFullYear() + 1,
-        3,
-        30
-      ).getTime();
-    }
-  }
-}, 1000);
 
 //CONSOLE THINGS
 // console.clear(); // clear group
