@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Roboto+Slab:wght@500&display=swap');
+@import url(https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css);
+@import url(https://fontlibrary.org//face/gentius);
+@import url(https://fontlibrary.org//face/hjet);
+@import url(https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Roboto+Slab:wght@500&display=swap);
+
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
@@ -29,7 +33,7 @@ section {
   align-items: center;
 }
 
-.section{
+.section {
   display: none;
 }
 
@@ -48,6 +52,7 @@ section {
   bottom: 0;
   right: 0;
 }
+
 .music-player {
   position: fixed;
   bottom: -400px;
@@ -97,7 +102,7 @@ section {
   position: relative;
 }
 
-#song-timer{
+#song-timer {
   text-align: right;
 }
 
@@ -121,11 +126,8 @@ section {
 }
 
 .close-btn {
-  width: 20px;
-  height: 20px;
-  background-image: url("https://img.icons8.com/ios-filled/50/000000/multiply.png");
-  background-repeat: no-repeat;
-  background-size: cover;
+  width: 30px;
+  height: 30px;
   border: none;
   cursor: pointer;
 }
@@ -171,10 +173,10 @@ section {
   color: #888;
 }
 
-.close-btn {
+#closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
 }
 .modal {
   display: none;
@@ -201,4 +203,25 @@ section {
   animation-timing-function: ease-in-out; /* Adjust the timing function as needed */
 }
 
+.changelogBlock {
+  font-family: "Roboto Slab", serif;
+  overflow: hidden;
+  width: 70vw;
+}
 
+.changelogBox {
+  background: rgb(207, 207, 207);
+  background: linear-gradient(
+    128deg,
+    rgba(207, 207, 207, 1) 0%,
+    rgba(177, 177, 177, 1) 100%
+  );
+  position: relative;
+}
+
+/* Styles for mobile devices with screen width less than or equal to 768px */
+@media (max-width: 768px) {
+  .changelogBlock {
+    width: 98vw;
+  }
+}

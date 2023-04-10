@@ -18,6 +18,7 @@ const progress = document.querySelector("#song-progress");
 const progressController = document.querySelector("#song-progress-controller");
 const timer = document.querySelector("#song-timer");
 const section = document.querySelector(".section");
+
 /////////////////////////////////////////////
 /////////////////////////////////////////////
 ///////////////COUNTDOWN/////////////////////
@@ -57,7 +58,7 @@ var x = setInterval(function () {
     mainBox.style.backgroundImage =
       "linear-gradient(175deg,#ee1010d5 0%, #cc0606 100%)";
   }
-  
+
   section.style.display = "block";
 
   // If the count down is finished
@@ -126,22 +127,34 @@ nextButton.addEventListener("click", nextSong);
 
 let isFirstOpen = true;
 
+/*
+playNowBtn.addEventListener("click", playNow);
+function playNow() {
+  if (player.pause()) {
+    updateSongInfo();
+    playSong();
+    slowVolumeUp();
+    isFirstOpen = false;
+    document.getElementById("playIcon").className = "fas fa-pause";
+  } else {
+    player.pause();
+    document.getElementById("playIcon").className = "fas fa-play";
+  }
+}
+*/
+
 function openPlayer() {
   playerModal.classList.add("is-active");
-  updateSongInfo();
   playerModal.classList.add("fadeInSlow");
   if (isFirstOpen) {
-    isFirstOpen = false;
+    updateSongInfo();
     slowVolumeUp();
+    isFirstOpen = false;
   }
   if (player.pause()) {
     playSong();
     document.getElementById("playIcon").className = "fas fa-pause";
   }
-}
-
-function closePlayer() {
-  playerModal.classList.remove("is-active");
 }
 
 function togglePlay() {
@@ -194,6 +207,9 @@ function updateSongInfo() {
   sourceButton.href = `${currentSong.nguon}`;
 }
 
+function closePlayer() {
+  playerModal.classList.remove("is-active");
+}
 
 //////  Volume Control  //////
 let currentVolume = 0.3; // Initialize current volume to 0.3
@@ -266,8 +282,12 @@ function playSong() {
   }, 1000);
 }
 
-document.getElementById("skipBackwardButton").addEventListener("click", skipBackwardButton);
-document.getElementById("skipForwardButton").addEventListener("click", skipForwardButton);
+document
+  .getElementById("skipBackwardButton")
+  .addEventListener("click", skipBackwardButton);
+document
+  .getElementById("skipForwardButton")
+  .addEventListener("click", skipForwardButton);
 
 // Skip 15 seconds forward
 function skip15SecondsForward() {
@@ -302,6 +322,17 @@ function formatTime(seconds) {
   const remainingSeconds = Math.floor(seconds % 60);
   return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
 }
+
+////// Changelog ///////
+document.getElementById("openChangelog").addEventListener("click", function () {
+  document.getElementById("changelogModal").classList.add("is-active");
+});
+
+document
+  .getElementById("closeChangelog")
+  .addEventListener("click", function () {
+    document.getElementById("changelogModal").classList.remove("is-active");
+  });
 
 //CONSOLE THINGS
 // console.clear(); // clear group
