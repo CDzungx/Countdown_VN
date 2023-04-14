@@ -135,10 +135,10 @@ function playNow() {
     playSong();
     slowVolumeUp();
     isFirstOpen = false;
-    document.getElementById("playIcon").className = "fas fa-pause";
+    playIcon.className = "fas fa-pause";
   } else {
     player.pause();
-    document.getElementById("playIcon").className = "fas fa-play";
+    playIcon.className = "fas fa-play";
   }
 }
 */
@@ -153,22 +153,22 @@ function openPlayer() {
   }
   if (player.pause()) {
     playSong();
-    document.getElementById("playIcon").className = "fas fa-pause";
+    playIcon.className = "fas fa-pause";
   }
 }
 
 function togglePlay() {
   if (player.playing()) {
     player.pause();
-    document.getElementById("playIcon").className = "fas fa-play";
+    playIcon.className = "fas fa-play";
   } else {
     playSong();
-    document.getElementById("playIcon").className = "fas fa-pause";
+    playIcon.className = "fas fa-pause";
   }
 }
 
-function prevSong() {
-  currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+function loadSong(index) {
+  currentSongIndex = index;
   player.stop();
   player = new Howl({
     src: [songs[currentSongIndex].src],
@@ -180,23 +180,38 @@ function prevSong() {
   });
   updateSongInfo();
   playSong();
-  document.getElementById("playIcon").className = "fas fa-pause";
+  playIcon.className = "fas fa-pause";
+}
+
+function prevSong() {
+  loadSong((currentSongIndex - 1 + songs.length) % songs.length);
 }
 
 function nextSong() {
-  currentSongIndex = (currentSongIndex + 1) % songs.length;
-  player.stop();
-  player = new Howl({
-    src: [songs[currentSongIndex].src],
-    html5: true,
-    volume: currentVolume,
-    onend: function () {
-      nextSong();
-    },
-  });
-  updateSongInfo();
-  playSong();
-  document.getElementById("playIcon").className = "fas fa-pause";
+  loadSong((currentSongIndex + 1) % songs.length);
+}
+
+playerModal.addEventListener("click", function (event) {
+  if (event.target.matches("#skipForwardButton")) {
+    skip10SecondsForward();
+  } else if (event.target.matches("#skipBackwardButton")) {
+    skip10SecondsBackward();
+  }
+});
+
+function skip10SecondsForward() {
+  skipSeconds(10);
+}
+
+function skip10SecondsBackward() {
+  skipSeconds(-10);
+}
+
+function skipSeconds(seconds) {
+  const currentPosition = player.seek();
+  const targetPosition = currentPosition + seconds;
+  player.seek(targetPosition);
+  updateSongProgressBar();
 }
 
 function updateSongInfo() {
@@ -232,20 +247,19 @@ function handleVolumeInput() {
 function handleVolumeWheel(event) {
   event.preventDefault();
   const delta = Math.max(-1, Math.min(1, event.deltaY || -event.detail));
-  volumeSlider.value = parseInt(volumeSlider.value) - 5 * delta;
-  handleVolumeInput();
+  const volume = Math.max(0, Math.min(1, currentVolume - 0.05 * Math.sign(delta)));
+  setVolume(volume);
 }
 
 function slowVolumeUp() {
-  const startVolume = currentVolume; // Use current volume as start volume
+  const startVolume = currentVolume;
   const targetVolume = 0.7;
-  const duration = 1000;
+  const duration = 900;
   const increment = (targetVolume - startVolume) / (duration / 10);
-
   const intervalId = setInterval(() => {
     currentVolume += increment;
+    currentVolume = Math.min(1, currentVolume); 
     setVolume(currentVolume);
-
     if (currentVolume >= targetVolume) {
       clearInterval(intervalId);
     }
@@ -255,8 +269,11 @@ function slowVolumeUp() {
 ////// Progress Bar ///////
 // Update the song progress bar based on the current song position
 function updateSongProgressBar() {
-  const progress = player.seek() / player.duration; // Calculate progress fraction
-  progressBar.style.width = `${progress * 100}%`; // Update progress bar width
+  const currentPosition = player.seek();
+  const duration = player.duration();
+  const progressPercentage = (currentPosition / duration) * 100;
+  progressBar.style.width = progressPercentage + "%";
+  timer.textContent = `${formatTime(currentPosition)} / ${formatTime(duration)}`;
 }
 
 // Function to play the song and update progress bar
@@ -264,52 +281,14 @@ function playSong() {
   player.play();
   updateSongProgressBar();
 
-  // Update timer with initial time
-  const timer = document.getElementById("song-timer");
-  timer.textContent = formatTime(player.seek()); // Update timer with initial time
-
   // Update progress bar and timer every second
   const intervalId = setInterval(() => {
-    const progress = player.seek() / player.duration();
-    progressBar.style.width = `${progress * 100}%`;
-    timer.textContent = `${formatTime(player.seek())} / ${formatTime(
-      player.duration()
-    )}`; // Update timer with current time and total duration
-
+    updateSongProgressBar();
     if (!player.playing()) {
       clearInterval(intervalId);
     }
   }, 1000);
 }
-
-document
-  .getElementById("skipBackwardButton")
-  .addEventListener("click", skipBackwardButton);
-document
-  .getElementById("skipForwardButton")
-  .addEventListener("click", skipForwardButton);
-
-// Skip 15 seconds forward
-function skip15SecondsForward() {
-  const currentPosition = player.seek();
-  const targetPosition = currentPosition + 10;
-  player.seek(targetPosition);
-  updateSongProgressBar();
-}
-
-// Skip 15 seconds backward
-function skip15SecondsBackward() {
-  const currentPosition = player.seek();
-  const targetPosition = currentPosition - 10;
-  player.seek(targetPosition);
-  updateSongProgressBar();
-}
-
-// Add event listener to skip forward button
-skipForwardButton.addEventListener("click", skip15SecondsForward);
-
-// Add event listener to skip backward button
-skipBackwardButton.addEventListener("click", skip15SecondsBackward);
 
 // Update progress bar as song plays
 player.on("play", () => {

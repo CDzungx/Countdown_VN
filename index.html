@@ -5,11 +5,10 @@
     <meta charset=utf-8>
     <meta name=viewport content="width=device-width, initial-scale=1">
     <title>Thống Nhất 30/4</title>
-    <link rel="icon" href="/src/icon.png" type="image/icon type">
+    <link rel="icon" href="/src/icon.png" type="image/icon">
     <link rel="stylesheet" href="dev.css">
     <script src="https://kit.fontawesome.com/3590ed5741.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.3/dist/howler.min.js"></script>
-    <script type="text/javascript" src="dev.js" async></script>
+    <script type="text/javascript" src="dev.min.js" async></script>
 </head>
 
 <body>
@@ -143,65 +142,67 @@
     <div class="modal" id="playerModal">
         <div class="modal-background"></div>
         <div class="modal-content">
-            <div class="box" style="position: relative;">
+            <div class="box musicModal">
                 <div class="title is-1 has-text-centered" style="font-weight: bolder;">TRÌNH PHÁT NHẠC</div>
-                <div class="title is-3 has-text-centered" style="font-family: 'Roboto Slab', serif;">
-                    <span id="songTitle"></span>
-                </div>
-                <div id="song-progress-bar" class="has-text-centered">
-                    <div id="song-progress"></div>
-                    <div id="song-progress-controller"></div>
-                </div>
-                <div id="song-timer" class="pt-2">0:00 / 0:00</div>
-                <div class="block has-text-centered">
-                    <div class="field is-grouped" style="justify-content: center">
-                        <div class="control">
-                            <button class="button is-warning" id="prevButton">
-                                <i class="fas fa-step-backward"></i>
-                            </button>
-                        </div>
-                        <div class="control">
-                            <button class="button is-warning" id="skipBackwardButton">
-                                <i class="fas fa-fast-backward"></i>
-                            </button>
-                        </div>
-                        <div class="control">
-                            <button class="button is-active" id="playButton">
-                                <i class="fas fa-play" id="playIcon"></i>
-                            </button>
-                        </div>
-                        <div class="control">
-                            <button class="button is-warning" id="skipForwardButton">
-                                <i class="fas fa-fast-forward"></i>
-                            </button>
-                        </div>
-                        <div class="control">
-                            <button class="button is-warning" id="nextButton">
-                                <i class="fas fa-step-forward"></i>
-                            </button>
-                        </div>
+                <div class="box musicBox mt-1">
+                    <div class="title is-3 has-text-centered" style="font-family: 'Roboto Slab', serif;">
+                        <span id="songTitle"></span>
                     </div>
-                    <div class="field is-grouped"
-                        style="justify-content: center; align-items: center; text-align: center;">
-                        <div class="control">
-                            <div class="input-group">
-                                <input type="range" min="0" max="100" class="slider" id="volumeSlider">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-volume-up"></i>
-                                </span>
+                    <div id="song-progress-bar" class="has-text-centered">
+                        <div id="song-progress"></div>
+                        <div id="song-progress-controller"></div>
+                    </div>
+                    <div id="song-timer" class="pt-2"></div>
+                    <div class="block has-text-centered">
+                        <div class="field is-grouped" style="justify-content: center">
+                            <div class="control">
+                                <button class="button is-warning" id="prevButton">
+                                    <i class="fas fa-step-backward"></i>
+                                </button>
+                            </div>
+                            <div class="control">
+                                <button class="button is-warning" id="skipBackwardButton">
+                                    <i class="fas fa-fast-backward"></i>
+                                </button>
+                            </div>
+                            <div class="control">
+                                <button class="button is-active" id="playButton">
+                                    <i class="fas fa-play" id="playIcon"></i>
+                                </button>
+                            </div>
+                            <div class="control">
+                                <button class="button is-warning" id="skipForwardButton">
+                                    <i class="fas fa-fast-forward"></i>
+                                </button>
+                            </div>
+                            <div class="control">
+                                <button class="button is-warning" id="nextButton">
+                                    <i class="fas fa-step-forward"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="field is-grouped"
+                            style="justify-content: center; align-items: center; text-align: center;">
+                            <div class="control">
+                                <div class="input-group">
+                                    <input type="range" min="0" max="100" class="slider" id="volumeSlider">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-volume-up"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="songInfos" style="font-family: 'Roboto Slab', serif;">
-                    <div class="subtitle p-0">Sáng tác: <span id="songComposer"></span></div>
-                    <div class="subtitle p-0">Thể hiện: <span id="songPerformer"></span></div>
-                    <div class="thongtin subtitle p-0"><span id="thongtinthem"></span></div>
-                    <a id="sourceButton" target="_blank">
-                        <button class="button" style="position: absolute; bottom: 7px; right: 7px;">
-                            <i class="fa-solid fa-circle-info"></i>
-                        </button>
-                    </a>
+                    <div class="songInfos" style="font-family: 'Roboto Slab', serif;">
+                        <div class="subtitle p-0">Sáng tác: <span id="songComposer"></span></div>
+                        <div class="subtitle p-0">Thể hiện: <span id="songPerformer"></span></div>
+                        <div class="thongtin subtitle p-0"><span id="thongtinthem"></span></div>
+                        <a id="sourceButton" target="_blank">
+                            <button class="button" style="position: absolute; bottom: 7px; right: 7px;">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -213,14 +214,23 @@
         <div class="modal-background"></div>
         <div class="modal-content changelogBlock">
             <div class="box changelogBox">
+                <button id="closeChangelog" class="modal-close is-large" aria-label="close"></button>
                 <h1 class="title is-2" style="text-align: center; color:black;">Changelog</h1>
                 <div class="box pl-3 pt-2">
                     <div class="block pt-3 pl-2" style="overflow-y: auto; max-height: 55vh;">
+                        <p style="text-align: center; color:black;">--- Trang được viết với mục đích học tập ---</p>
+                        <hr>
+                        <div class="title is-5">Phần 8 (14/4/2023)</div>
+                        <div class="subtitle pl-2">Cải thiện giao diện, Javascript.<br>Sửa các lỗi của thanh tiến trình
+                            khi chuyển
+                            bài, chỉnh âm lượng, nút tiến/lùi 15s</div>
+                        <hr>
                         <div class="title is-5">Phần 7 (10/4/2023)</div>
                         <div class="subtitle pl-2">Thêm hộp Changelog.</div>
                         <hr>
                         <div class="title is-5">Phần 6 (08/4/2023)</div>
-                        <div class="subtitle pl-2">Thêm thanh tiến độ cho nhạc, nút lùi/tiến 10s.<br>Thêm chút hiệu ứng
+                        <div class="subtitle pl-2">Thêm thanh tiến trình cho nhạc, nút lùi/tiến 10s.<br>Thêm chút hiệu
+                            ứng
                             🤡</div>
                         <hr>
                         <div class="title is-5">Phần 5 (03/4/2023)</div>
@@ -245,8 +255,8 @@
                 </div>
             </div>
         </div>
-        <button id="closeChangelog" class="modal-close is-large" aria-label="close"></button>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.3/dist/howler.min.js"></script>
 </body>
 
 </html>
