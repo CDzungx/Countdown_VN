@@ -9,6 +9,8 @@ const playButton = document.querySelector("#playButton");
 const nextButton = document.querySelector("#nextButton");
 const volumeSlider = document.querySelector("#volumeSlider");
 const sourceButton = document.querySelector("#sourceButton");
+const skipBackwardButton =document.querySelector("#skipBackwardButton");
+const skipForwardButton =document.querySelector("#skipForwardButton");
 const wikiBtn = document.querySelectorAll(".wikiBtn");
 const mainBox = document.querySelector(".mainBox");
 const countdownTitle = document.querySelector(".countdownTitle");
@@ -191,13 +193,8 @@ function nextSong() {
   loadSong((currentSongIndex + 1) % songs.length);
 }
 
-playerModal.addEventListener("click", function (event) {
-  if (event.target.matches("#skipForwardButton")) {
-    skip10SecondsForward();
-  } else if (event.target.matches("#skipBackwardButton")) {
-    skip10SecondsBackward();
-  }
-});
+skipForwardButton.addEventListener("click", skip10SecondsForward);
+skipBackwardButton.addEventListener("click", skip10SecondsBackward);
 
 function skip10SecondsForward() {
   skipSeconds(10);
