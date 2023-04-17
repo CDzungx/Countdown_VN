@@ -1,6 +1,5 @@
 const openPlayerBtn = document.querySelector("#openPlayer");
 const playerModal = document.querySelector("#playerModal");
-const closeButton = document.querySelector("#closeButton");
 const songTitle = document.querySelector("#songTitle");
 const songComposer = document.querySelector("#songComposer");
 const songPerformer = document.querySelector("#songPerformer");
@@ -93,14 +92,6 @@ var x = setInterval(function () {
 let currentSongIndex = 0;
 let songs = [
   {
-    title: "Vui Mở Đường",
-    composer: "Đỗ Nhuận",
-    performer: "NSƯT Hữu Nội - Hợp ca nam nữ Đài TNVN",
-    src: "/soundtrack/vuimoduong.mp3",
-    nguon: "https://bcdcnt.net/bai-hat/vui-mo-duong-731.html",
-    thongtinthem: "",
-  },
-  {
     title: "Đất Nước Trọn Niềm Vui",
     composer: "Hoàng Hà",
     performer: "NSƯT Hữu Nội",
@@ -108,7 +99,14 @@ let songs = [
     nguon: "https://bcdcnt.net/bai-hat/dat-nuoc-tron-niem-vui-512.html",
     thongtinthem: "",
   },
-
+  {
+    title: "Vui Mở Đường",
+    composer: "Đỗ Nhuận",
+    performer: "NSƯT Hữu Nội - Hợp ca nam nữ Đài TNVN",
+    src: "/soundtrack/vuimoduong.mp3",
+    nguon: "https://bcdcnt.net/bai-hat/vui-mo-duong-731.html",
+    thongtinthem: "",
+  },
   // ...
 ];
 
@@ -122,7 +120,6 @@ let player = new Howl({
 });
 
 openPlayerBtn.addEventListener("click", openPlayer);
-closeButton.addEventListener("click", closePlayer);
 prevButton.addEventListener("click", prevSong);
 playButton.addEventListener("click", togglePlay);
 nextButton.addEventListener("click", nextSong);
@@ -219,9 +216,15 @@ function updateSongInfo() {
   sourceButton.href = `${currentSong.nguon}`;
 }
 
-function closePlayer() {
+function minimizePlayer() {
   playerModal.classList.remove("is-active");
 }
+
+function closePlayer(){
+    playerModal.classList.remove("is-active");
+    player.pause();
+}
+
 
 //////  Volume Control  //////
 let currentVolume = 0.3; // Initialize current volume to 0.3
@@ -304,11 +307,9 @@ document.getElementById("openChangelog").addEventListener("click", function () {
   document.getElementById("changelogModal").classList.add("is-active");
 });
 
-document
-  .getElementById("closeChangelog")
-  .addEventListener("click", function () {
-    document.getElementById("changelogModal").classList.remove("is-active");
-  });
+function closeChangelog(){
+    changelogModal.classList.remove("is-active");
+}
 
 //CONSOLE THINGS
 // console.clear(); // clear group

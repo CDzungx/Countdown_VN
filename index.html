@@ -156,7 +156,7 @@
                     <div class="block has-text-centered">
                         <div class="field is-grouped" style="justify-content: center">
                             <div class="control">
-                                <button class="button is-warning" id="prevButton">
+                                <button class="button is-danger" id="prevButton">
                                     <i class="fas fa-step-backward"></i>
                                 </button>
                             </div>
@@ -176,7 +176,7 @@
                                 </button>
                             </div>
                             <div class="control">
-                                <button class="button is-warning" id="nextButton">
+                                <button class="button is-danger" id="nextButton">
                                     <i class="fas fa-step-forward"></i>
                                 </button>
                             </div>
@@ -206,7 +206,15 @@
                 </div>
             </div>
         </div>
-        <button class="modal-close is-large" aria-label="close" id="closeButton"></button>
+        <div class="modalMag">
+            <div class="button is-primary" onclick="minimizePlayer()">
+                <i class="fa-solid fa-down-left-and-up-right-to-center" style="color: #ffffff;"></i>
+            </div>
+            <div class="button is-primary" onclick="closePlayer()">
+                <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+            </div>
+        </div>
+
     </div>
 
     <!--Changelog-->
@@ -220,16 +228,20 @@
                     <div class="block pt-3 pl-2" style="overflow-y: auto; max-height: 55vh;">
                         <p style="text-align: center; color:black;">--- Trang được viết với mục đích học tập ---</p>
                         <hr>
+                        <p style="text-align: center;"> -- PREP4APR30 2023 -- </p>
+                        <div class="title is-5">Phần 9 (17/4/2023)</div>
+                        <div class="subtitle pl-2">Cải thiện giao diện</div> 
+                        <hr>
                         <div class="title is-5">Phần 8 (14/4/2023)</div>
-                        <div class="subtitle pl-2">Cải thiện giao diện, Javascript.<br>Sửa các lỗi của thanh tiến trình
-                            khi chuyển
-                            bài, chỉnh âm lượng, nút tiến/lùi 15s</div>
+                        <div class="subtitle pl-2">Cải thiện giao diện, Javascript.<br>Sửa các lỗi của: thanh tiến
+                            trình, chỉnh âm lượng, nút tiến/lùi 15s</div>
                         <hr>
                         <div class="title is-5">Phần 7 (10/4/2023)</div>
                         <div class="subtitle pl-2">Thêm hộp Changelog.</div>
                         <hr>
                         <div class="title is-5">Phần 6 (08/4/2023)</div>
-                        <div class="subtitle pl-2">Thêm thanh tiến trình cho nhạc, nút lùi/tiến 10s.<br>Thêm chút hiệu
+                        <div class="subtitle pl-2">Thêm thanh tiến trình cho nhạc, nút lùi/tiến 10s.<br>Thêm chút
+                            hiệu
                             ứng
                             🤡</div>
                         <hr>
@@ -237,22 +249,30 @@
                         <div class="subtitle pl-2">Thay đổi tên miền từ .gq miễn phí của Freenom, hiện đã chết do <a
                                 href="https://thanhnien.vn/freenom-ngung-dang-ky-ten-mien-sau-don-kien-tu-meta-185230308235219532.htm"
                                 target="_blank">Freenom
-                                bị Meta kiện</a> (công ty mẹ Facebook) sang tên miền .tech.<br>Sửa lỗi volume tự về mặc
+                                bị Meta kiện</a> (công ty mẹ Facebook) sang tên miền .tech.<br>Sửa lỗi volume tự về
+                            mặc
                             định khi chuyển bài.</div>
                         <hr>
                         <div class="title is-5">Phần 4 (03/4/2023)</div>
-                        <div class="subtitle pl-2">Thay đổi định dạng nền .gif sang .webm để cải thiện tốc độ tải trang.
+                        <div class="subtitle pl-2">Thay đổi định dạng nền .gif sang .webm để cải thiện tốc độ tải
+                            trang.
                             <br>Tối ưu Javascript.<br>Đổi nhạc cho trình phát.
                         </div>
                         <hr>
                         <div class="title is-5">Phần 2-3 (04/4/2023)</div>
-                        <div class="subtitle pl-2">Cho thanh âm lượng có thể được điều chỉnh bằng con lăn chuột<br>Cho
+                        <div class="subtitle pl-2">Cho thanh âm lượng có thể được điều chỉnh bằng con lăn
+                            chuột<br>Cho
                             âm lượng trình phát tăng từ từ.<br>Thay đổi nhỏ UI, tối ưu Javascript.</div>
                         <hr>
                         <div class="title is-5">Phần 1 (03/4/2023)</div>
                         <div class="subtitle pl-2">Thêm trình phát nhạc, vài chỉnh sửa nhỏ.</div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="modalMag">
+            <div class="button is-primary" onclick="closeChangelog()">
+                <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
             </div>
         </div>
     </div>
