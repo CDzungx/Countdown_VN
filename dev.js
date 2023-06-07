@@ -29,6 +29,9 @@ const section = document.querySelector(".section");
 var countDownDate = new Date("Apr 30, 2023 00:00:00").getTime();
 var nextCountDownDate = new Date("Sep 2, 2023 00:00:00").getTime();
 
+  // If the count down is finished
+
+
 var x = setInterval(function () {
   var now = new Date().getTime();
   var distance = countDownDate - now;
@@ -40,6 +43,27 @@ var x = setInterval(function () {
   document.getElementById("hour").innerHTML = hours;
   document.getElementById("minute").innerHTML = minutes;
   document.getElementById("second").innerHTML = seconds;
+  if (distance < 0 && distance > -1000 ) {
+
+  } 
+  else if (distance <-1000) {
+    // Update countdown date to nextCountDownDate
+    countDownDate = nextCountDownDate;
+
+    // Calculate nextCountDownDate based on current countDownDate
+    var currentDate = new Date(countDownDate);
+    if (currentDate.getMonth() === 3 && currentDate.getDate() === 30) {
+      // If current countdown date is April 30th, set next countdown to September 2nd of same year
+      nextCountDownDate = new Date(currentDate.getFullYear(), 8, 2).getTime();
+    } else {
+      // Otherwise set next countdown to April 30th of next year
+      nextCountDownDate = new Date(
+        currentDate.getFullYear() + 1,
+        3,
+        30
+      ).getTime();
+    }
+  };
   if (countDownDate === new Date("Apr 30, 2023 00:00:00").getTime()) {
     wikiBtn.forEach(
       (btn) =>
@@ -61,26 +85,6 @@ var x = setInterval(function () {
   }
 
   section.style.display = "block";
-
-  // If the count down is finished
-  if (distance < 0) {
-    // Update countdown date to nextCountDownDate
-    countDownDate = nextCountDownDate;
-
-    // Calculate nextCountDownDate based on current countDownDate
-    var currentDate = new Date(countDownDate);
-    if (currentDate.getMonth() === 3 && currentDate.getDate() === 30) {
-      // If current countdown date is April 30th, set next countdown to September 2nd of same year
-      nextCountDownDate = new Date(currentDate.getFullYear(), 8, 2).getTime();
-    } else {
-      // Otherwise set next countdown to April 30th of next year
-      nextCountDownDate = new Date(
-        currentDate.getFullYear() + 1,
-        3,
-        30
-      ).getTime();
-    }
-  }
 }, 1000);
 
 /////////////////////////////////////////////
